@@ -1,9 +1,17 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 .navbar {
-    background-color: rgb(224, 215, 215);
+    background-color: rgb(255, 255, 255);
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    height: 100%;
+    border: 1px solid rgb(186, 166, 19);
+    border-radius: 4px;
 }
 
 .navbar ul {
@@ -24,6 +32,13 @@
 .navbar a {
     text-decoration: none;
     color: inherit;
+}
+
+h4{
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 20px;
 }
 
 .logo img {
@@ -56,10 +71,10 @@
     transition: all 0.3s ease;
 }
 body {
-    color: rgb(37, 37, 37);
+    color: rgb(17, 9, 9);
     font-family: Arial, sans-serif;
     user-select: none;
-    background-color: rgb(177, 196, 226);
+    font-size: bold;
     background-size: cover;
     
     
@@ -90,19 +105,13 @@ span {
     cursor: pointer;
     
 }
-.decouvrir a{
-    text-decoration: none;
-    color: inherit;
-}
+
 .decouvrir:hover{
     background-color: rgba(186, 166, 19, 0.575);
      transform: translateY(-3px);
     transition: all 0.3s ease;
 }
-.decouvrir a:hover{
-    color: rgb(46, 48, 50);
-    transition: all 0.3s ease;
-}
+
 
 .voir{
     color: rgb(46, 48, 50);
@@ -119,10 +128,8 @@ span {
     transition: all 0.3s ease;
     cursor: pointer;
 }
-.voir a{
-    text-decoration: none;
-    color: inherit;
-}
+
+
 
 .voir:hover{
     background-color: rgba(93, 92, 77, 0.899);
@@ -140,4 +147,33 @@ span {
         margin: 5px 0;
     }
     
+}
+
+.cover{
+    background-position: center;
+    width: 100%;
+    height: 100%;
+   
+    
+    object-fit: cover;
+}
+
+.description{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: left;
+    color: rgb(0, 0, 0);
+}
+
+.ico{
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    float: left;
+}
+img{
+   
+   opacity: 0.4;
 }
