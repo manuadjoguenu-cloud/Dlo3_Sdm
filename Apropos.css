@@ -1,0 +1,150 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  display: flex;
+  align-items: stretch;
+  min-height: 100vh;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* --- Bouton retour --- */
+.retour {
+  position: fixed;
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 10;
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background-color: #ffffff;
+  color: #0a1f5c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(10, 31, 92, 0.18);
+  transition: background-color 0.18s ease, transform 0.18s ease;
+}
+
+.retour:hover {
+  background-color: #d4a340;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.retour:active {
+  transform: translateY(0);
+}
+
+.retour:focus-visible {
+  outline: 2px solid #d4a340;
+  outline-offset: 2px;
+}
+
+/* --- Colonne image --- */
+.propos-img {
+  flex: 0 0 28%;
+  overflow: hidden;
+  background-color: #F6EFE1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* --- Colonne texte --- */
+.explain {
+  flex: 0 0 40%;
+  padding: 2.5rem 2rem;
+  padding-top: 5rem;
+  background-color: #F6EFE1;
+}
+
+.explain h2 {
+  color: #d4a340;
+  font-size: 0.85rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.3rem;
+}
+
+.explain h1 {
+  color: #1a2b5c;
+  font-size: 1.9rem;
+  font-weight: 800;
+  margin-bottom: 0.8rem;
+}
+
+#trait {
+  width: 50px;
+  height: 4px;
+  background-color: #d4a340;
+  border-radius: 2px;
+  margin-bottom: 1.2rem;
+}
+
+#present {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: #444;
+}
+
+/* --- Bloc bleu (chiffres) --- */
+.presentation-box {
+  flex: 1;
+  background-color: #0a1f5c;
+  color: white;
+  padding: 2.5rem 2rem;
+}
+
+.presentation-box > p {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: 1px;
+}
+
+.presentation-box span {
+  color: #d3a343;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
+.stat-card {
+  border: 1px solid #3a4d8f;
+  border-radius: 8px;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stat-card .icon {
+  font-size: 1.8rem;
+}
+
+.stat-card strong {
+  font-size: 1.5rem;
+}
+
+.stat-card span {
+  color: #cfd6ef;
+  font-size: 0.85rem;
+}

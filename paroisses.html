@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nos Communautés — Diocèse</title>
+<link rel="stylesheet" href="paroisses.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+
+
+</head>
+<body>
+<button class="retour" onclick="history.back()" aria-label="Retour à la page précédente" title="Retour">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M15 5 8 12l7 7" />
+    </svg>
+  </button>
+
+<header>
+  <p class="eyebrow">Répertoire diocésain</p>
+  <h1>Nos <span class="compte" id="total">22</span> communautés</h1>
+  <p class="sous-titre">Paroisses, quasi-paroisses et stations secondaires qui composent l' archidiocèse. Utilisez la recherche pour retrouver une communauté par son nom ou sa localité.</p>
+  <div class="recherche">
+    <input type="search" id="champ-recherche" placeholder="Rechercher une paroisse, une localité…" aria-label="Rechercher une communauté">
+  </div>
+</header>
+
+<main id="conteneur"></main>
+<p class="vide" id="message-vide">Aucune communauté ne correspond à cette recherche.</p>
+
+<div class="modale-fond" id="modale-fond" hidden>
+  <div class="modale" role="dialog" aria-modal="true" aria-labelledby="modale-titre">
+    <button class="modale-fermer" id="modale-fermer" aria-label="Fermer la fiche">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <p class="modale-type" id="modale-type"></p>
+    <h3 id="modale-titre"></h3>
+    <dl class="modale-details">
+      <div>
+        <dt>Curé</dt>
+        <dd id="modale-cure"></dd>
+      </div>
+      <div>
+        <dt>Responsable de base</dt>
+        <dd id="modale-responsable"></dd>
+      </div>
+      <div>
+        <dt>Localisation</dt>
+        <dd id="modale-localisation"></dd>
+      </div>
+    </dl>
+  </div>
+</div>
+
+<script>
+  // Chaque communauté : { id, type, vocable, lieu, cure, responsable:{nom,tel}, localisation }
+  // ⚠️ Les champs "cure", "responsable" et "localisation" sont à compléter avec les vraies
+  // informations de chaque communauté — ils sont ici à "À renseigner" par défaut.
+  const communautes = [
+    { id: "adidogome", type: "Paroisse", vocable: "Marie Mère du Rédempteur", lieu: "Adidogomé", cure:"RP Michel ESSEH", responsable:{nom:"Simon",tel:"+228#"} },
+    
+    { id: "amandahome", type: "Paroisse", vocable: "Jésus Miséricordieux", lieu: "Amandahomé", cure:"RP Paul AMAGLO", responsable:{nom:"Fr Victor",tel:"+228#"} },
+    { id: "apedokoe", type: "Paroisse", vocable: "Sancta Maria Regina Pacis", lieu: "Apédokoé", cure:"RP Georges GBAFA", responsable:{nom:"Fr Emmanuel ADJOGUENU",tel:"+22891427225"} },
+    { id: "yokoe", type: "Paroisse", vocable: "Saint Jean-Baptiste", lieu: "Yokoé", cure:"RP Darius ADJANGBA", responsable:{nom:"Fr Léonce",tel:"+228#"} },
+    { id: "wonyome", type: "Paroisse", vocable: "Notre Dame du Sacré-Cœur", lieu: "Wonyomé", cure:"RP Placide TEFE", responsable:{nom:"Fr Aimé-césaire",tel:"+228#"} },
+    { id: "logote", type: "Paroisse", vocable: "Christ-Ressuscité", lieu: "Sagbado-Logoté", cure:"RP Victor ATSOUTSE", responsable:{nom:"Fr Christophe",tel:"+228#"} },
+    { id: "segbe", type: "Paroisse", vocable: "Notre Dame du Perpétuel Secours", lieu: "Ségbé", cure:"RP Gaston AMOUZOU", responsable:{nom:"Fr Nicodème EKLOU",tel:"+228#"} },
+    { id: "akato", type: "Paroisse", vocable: "Saint Joseph", lieu: "Akato-viépé", cure:"RP Augstin SOEDJEDE", responsable:{nom:"Michel",tel:"+228#"} },
+    { id: "agblegan", type: "Paroisse", vocable: "Notre Dame de la Miséricorde", lieu: "Agblégan", cure:"RP Romain NAYO", responsable:{nom:"Fr Modeste",tel:"+228#"} },
+    { id: "kohe", type: "Paroisse", vocable: "Notre Dame de la Médaille Miraculeuse", lieu: "Kohé", cure:"RP David SOSSOU", responsable:{nom:"Emile",tel:"#+228"} },
+    { id: "zossime", type: "Paroisse", vocable: "Sainte Rita", lieu: "Zossimé", cure:"RP Philippe Jacques GAMISSO", responsable:{nom:"#",tel:"#+228"} },
+    { id: "balissime", type: "Quasi-Paroisse", vocable: "Saint-Esprit", lieu: "Balissimé" , cure:"RP Jean AMEGNEKOU", responsable:{nom:"Fr Prosper",tel:"+228#"}},
+    { id: "agokpanou", type: "Quasi-Paroisse", vocable: "Saint Michel Archange", lieu: "Klémé-Agokpanou", cure:"RP Dominique ASSIGNON", responsable:{nom:"#",tel:"+228#"} },
+    { id: "logogome", type: "Quasi-Paroisse", vocable: "Virgo Potens", lieu: "Logogomé", cure:"RP Florentin TOKOU", responsable:{nom:"Fr Sylvanus",tel:"+228#"} },
+    { id: "agotile", type: "Quasi-Paroisse", vocable: "Notre Dame du Rosaire", lieu: "Sagbado-Agotimé", cure:"RP Marie-Athanase ATTIGNON", responsable:{nom:"Fr Daniel",tel:"+228#"} },
+    { id: "soviepe", type: "Quasi-Paroisse", vocable: "Saint Daniel Comboni", lieu: "Avédji-Anyigbé-Soviépé", cure:"RP Saturnin POGNON", responsable:{nom:"#",tel:"+228#"} },
+    { id: "glinkomegan", type: "Station secondaire", vocable: "Notre Dame de Lourdes", lieu: "Gblinkomégan", cure:"RP Michel ESSEH", responsable:{nom:"Pacôme",tel:"+228#"} },
+    { id: "wessome", type: "Station secondaire", vocable: "Saint Christophe", lieu: "Wessomé", cure:"RP Michel ESSEH", responsable:{nom:"#",tel:"+228#"} },
+    { id: "lankouvi1", type: "Station secondaire", vocable: "Marie Porte du Ciel", lieu: "Lankouvi", cure:"RP Michel ESSEH", responsable:{nom:"Fr Raphaël",tel:"+228#"} },
+    { id: "lankouvi2", type: "Station secondaire", vocable: "Saint Charles Lwanga", lieu: "Lankouvi-Zogbédji", cure:"RP Michel ESSEH", responsable:{nom:"#",tel:"#+228"} },
+    { id: "avoeme", type: "Station secondaire", vocable: "Jésus Miséricordieux", lieu: "Akato-Avoémé", cure:"RP Michel ESSEH", responsable:{nom:"#",tel:"+228#"} },
+    { id: "djigbe", type: "Station secondaire", vocable: "Saint Justin", lieu: "Klémé-Djigbé", cure:"RP Michel ESSEH", responsable:{nom:"#",tel:"+228#"} },
+  ].map(c => ({
+    cure: "À renseigner",
+    responsable: { nom: "À renseigner", tel: "" },
+    localisation: `${c.lieu}, Lomé, Togo`,
+    ...c
+  }));
+
+  const ordreTypes = ["Paroisse", "Quasi-Paroisse", "Station secondaire"];
+  const conteneur = document.getElementById("conteneur");
+  const messageVide = document.getElementById("message-vide");
+  document.getElementById("total").textContent = communautes.length;
+
+  function rendre(filtre = "") {
+    conteneur.innerHTML = "";
+    const f = filtre.trim().toLowerCase();
+    let totalAffiche = 0;
+
+    ordreTypes.forEach(type => {
+      const items = communautes.filter(c =>
+        c.type === type &&
+        (c.vocable.toLowerCase().includes(f) || c.lieu.toLowerCase().includes(f))
+      );
+      if (items.length === 0) return;
+      totalAffiche += items.length;
+
+      const section = document.createElement("section");
+      section.className = "section";
+      section.innerHTML = `
+        <div class="section-entete">
+          <h2>${type}${items.length > 1 ? "s" : ""}</h2>
+          <span class="nb">${items.length}</span>
+        </div>
+        <div class="grille">
+          ${items.map(c => `
+            <article class="carte" data-id="${c.id}" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Voir les informations de ${c.vocable}, ${c.lieu}">
+              <div class="vocable">${c.vocable}</div>
+              <div class="lieu">${c.lieu}</div>
+            </article>
+          `).join("")}
+        </div>
+      `;
+      conteneur.appendChild(section);
+    });
+
+    messageVide.style.display = totalAffiche === 0 ? "block" : "none";
+  }
+
+  document.getElementById("champ-recherche").addEventListener("input", e => rendre(e.target.value));
+
+  rendre();
+
+  // ---------- Fiche détaillée (modale) ----------
+  const modaleFond = document.getElementById("modale-fond");
+  const modaleTitre = document.getElementById("modale-titre");
+  const modaleType = document.getElementById("modale-type");
+  const modaleCure = document.getElementById("modale-cure");
+  const modaleResponsable = document.getElementById("modale-responsable");
+  const modaleLocalisation = document.getElementById("modale-localisation");
+  let dernierFocus = null;
+
+  function ouvrirFiche(id) {
+    const c = communautes.find(x => x.id === id);
+    if (!c) return;
+
+    modaleType.textContent = c.type;
+    modaleTitre.textContent = `${c.vocable} — ${c.lieu}`;
+    modaleCure.textContent = c.cure || "À renseigner";
+
+    modaleResponsable.innerHTML = "";
+    modaleResponsable.append(c.responsable?.nom || "À renseigner");
+    if (c.responsable?.tel) {
+      const lien = document.createElement("a");
+      lien.href = `tel:${c.responsable.tel.replace(/\s+/g, "")}`;
+      lien.textContent = c.responsable.tel;
+      modaleResponsable.append(" — ", lien);
+    }
+
+    modaleLocalisation.textContent = c.localisation || "À renseigner";
+
+    dernierFocus = document.activeElement;
+    modaleFond.hidden = false;
+    document.body.style.overflow = "hidden";
+    document.getElementById("modale-fermer").focus();
+  }
+
+  function fermerFiche() {
+    modaleFond.hidden = true;
+    document.body.style.overflow = "";
+    if (dernierFocus) dernierFocus.focus();
+  }
+
+  conteneur.addEventListener("click", e => {
+    const carte = e.target.closest(".carte");
+    if (carte) ouvrirFiche(carte.dataset.id);
+  });
+
+  conteneur.addEventListener("keydown", e => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const carte = e.target.closest(".carte");
+    if (!carte) return;
+    e.preventDefault();
+    ouvrirFiche(carte.dataset.id);
+  });
+
+  document.getElementById("modale-fermer").addEventListener("click", fermerFiche);
+  modaleFond.addEventListener("click", e => { if (e.target === modaleFond) fermerFiche(); });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && !modaleFond.hidden) fermerFiche();
+  });
+</script>
+</body>
+</html>
