@@ -1,0 +1,173 @@
+:root{
+  --ivoire: #F6EFE1;
+  --panneau: #FFFDF8;
+  --encre: #2B2118;
+  --or: #B3812C;
+  --or-clair: #E4B65C;
+  --bordeaux: #7A2331;
+  --vert: #3F5D42;
+  --ombre: rgba(43, 33, 24, .12);
+  --rayon: 3px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Karla', Arial, sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+  background: var(--ivoire);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* --- Cadre principal --- */
+.activite-box{
+  flex: 1;
+  background-color: var(--ivoire);
+  color: var(--encre);
+  padding: 3rem 6vw 3rem;
+}
+
+.activite-box > p {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+  line-height: 1.3;
+  max-width: 32ch;
+  margin-bottom: 2.5rem;
+}
+
+.activite-box > p span {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--or);
+}
+
+/* --- Grille des activités --- */
+.activites-grille{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.2rem;
+  max-width: 1000px;
+}
+
+.activite{
+  background: var(--panneau);
+  border: 1px solid rgba(43,33,24,.1);
+  border-radius: var(--rayon);
+  padding: 2rem 1.2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .7rem;
+  position: relative;
+  cursor: pointer;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+.activite:focus-visible{
+  outline: 2px solid var(--or);
+  outline-offset: 2px;
+}
+
+.activite::before{
+  content: "";
+  position: absolute;
+  left: 0; top: .9rem; bottom: .9rem;
+  width: 3px;
+  background: var(--or-clair);
+  border-radius: 2px;
+  transition: background .18s ease;
+}
+
+.activite:hover, .activite:focus-visible{
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px var(--ombre);
+  border-color: rgba(179,129,44,.35);
+}
+
+.activite:hover::before, .activite:focus-visible::before{ background: var(--bordeaux); }
+
+.activite .icon{
+  font-size: 2.1rem;
+  line-height: 1;
+}
+
+.activite span{
+  font-weight: 700;
+  font-size: .92rem;
+  color: var(--encre);
+}
+
+/* ---------- Fiche descriptive (modale) ---------- */
+.modale-fond{
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(43,33,24,.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+.modale-fond[hidden]{ display: none; }
+
+.modale{
+  position: relative;
+  background: var(--panneau);
+  border-radius: 6px;
+  max-width: 420px;
+  width: 100%;
+  padding: 2.2rem 1.8rem 1.8rem;
+  text-align: center;
+  box-shadow: 0 24px 60px rgba(43,33,24,.35);
+}
+
+.modale-fermer{
+  position: absolute;
+  top: .9rem; right: .9rem;
+  width: 32px; height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(43,33,24,.06);
+  color: var(--encre);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background .15s ease;
+}
+.modale-fermer:hover{ background: rgba(122,35,49,.12); color: var(--bordeaux); }
+
+.modale-icone{
+  font-size: 2.4rem;
+  margin-bottom: .8rem;
+}
+
+.modale h3{
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 1.35rem;
+  line-height: 1.25;
+  margin-bottom: 1rem;
+}
+
+.modale p{
+  font-size: .95rem;
+  line-height: 1.6;
+  color: var(--encre);
+}
+
+@media (max-width: 480px){
+  .activite-box{ padding: 2.5rem 5vw 2.5rem; }
+}

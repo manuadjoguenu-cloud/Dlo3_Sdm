@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nos_Activité-Dlo3</title>
+    <link rel="stylesheet" href="Activites.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="navbar.css">
+</head>
+<body>
+
+<div class="navbar">
+  <div class="logo">
+    <img src="logo.jpeg" alt="Logo du site">
+  </div>
+  <ul>
+    <li><a href="Accueil.html">ACCUEIL</a></li>
+    <li><a href="paroisses.html">PAROISSES</a></li>
+    <li class="actif"><a href="Activites.html">ACTIVITÉS</a></li>
+    <li><a href="Actualites.html">ACTUALITÉS</a></li>
+    <li><a href="Galerie.html">GALERIE</a></li>
+    <li><a href="Apropos.html">À PROPOS</a></li>
+    <li><a href="Contact.html">CONTACT</a></li>
+  </ul>
+  <button id="join">REJOINDRE LES SERVANTS
+    <img src="join.jpg" alt="Rejoindre les servants" class="ico">
+  </button>
+</div>
+
+<!--Cadre des activités-->
+<div class="activite-box">
+    <p>Les <span>Activités</span> des Servants de Messe du Doyenné Lomé Ouest 3</p>
+
+    <div class="activites-grille">
+      <div class="activite meet" data-id="meet" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="icon">🤝</div>
+         <span>Réunion des Responsables</span>
+      </div>
+
+      <div class="activite recollection" data-id="recollection" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="icon">🙏</div>
+          <span>Récollection</span>
+      </div>
+
+      <div class="activite camp" data-id="camp" tabindex="0" role="button" aria-haspopup="dialog">
+        <div class="icon">🏕️</div>
+        <span>Camp de formation</span>
+      </div>
+
+      <div class="activite amitie" data-id="amitie" tabindex="0" role="button" aria-haspopup="dialog">
+        <div class="icon">🎉</div>
+        <span>Journée d'amitié</span>
+      </div>
+    </div>
+</div>
+
+<div class="modale-fond" id="modale-fond" hidden>
+  <div class="modale" role="dialog" aria-modal="true" aria-labelledby="modale-titre">
+    <button class="modale-fermer" id="modale-fermer" aria-label="Fermer la fiche">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <div class="modale-icone" id="modale-icone"></div>
+    <h3 id="modale-titre"></h3>
+    <p id="modale-description"></p>
+  </div>
+</div>
+
+<script>
+  // Description de chaque activité — à compléter avec le vrai texte de présentation.
+  const activites = {
+    meet: {
+      icone: "🤝",
+      titre: "Réunion des Responsables",
+      description: "À renseigner : objectif de la réunion, fréquence, qui y participe.",
+    },
+    recollection: {
+      icone: "🙏",
+      titre: "Récollection",
+      description: "À renseigner : déroulement de la journée, lieu habituel, fréquence.",
+    },
+    camp: {
+      icone: "🏕️",
+      titre: "Camp de formation",
+      description: "À renseigner : durée du camp, période de l'année, ce qui y est enseigné.",
+    },
+    amitie: {
+      icone: "🎉",
+      titre: "Journée d'amitié",
+      description: "À renseigner : ce qui se passe pendant cette journée, entre qui/avec qui.",
+    },
+  };
+
+  const modaleFond = document.getElementById("modale-fond");
+  const modaleIcone = document.getElementById("modale-icone");
+  const modaleTitre = document.getElementById("modale-titre");
+  const modaleDescription = document.getElementById("modale-description");
+  let dernierFocus = null;
+
+  function ouvrirFiche(id) {
+    const a = activites[id];
+    if (!a) return;
+
+    modaleIcone.textContent = a.icone;
+    modaleTitre.textContent = a.titre;
+    modaleDescription.textContent = a.description;
+
+    dernierFocus = document.activeElement;
+    modaleFond.hidden = false;
+    document.body.style.overflow = "hidden";
+    document.getElementById("modale-fermer").focus();
+  }
+
+  function fermerFiche() {
+    modaleFond.hidden = true;
+    document.body.style.overflow = "";
+    if (dernierFocus) dernierFocus.focus();
+  }
+
+  document.querySelectorAll(".activite").forEach(carte => {
+    carte.addEventListener("click", () => ouvrirFiche(carte.dataset.id));
+    carte.addEventListener("keydown", e => {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      e.preventDefault();
+      ouvrirFiche(carte.dataset.id);
+    });
+  });
+
+  document.getElementById("modale-fermer").addEventListener("click", fermerFiche);
+  modaleFond.addEventListener("click", e => { if (e.target === modaleFond) fermerFiche(); });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && !modaleFond.hidden) fermerFiche();
+  });
+</script>
+</body>
+</html>

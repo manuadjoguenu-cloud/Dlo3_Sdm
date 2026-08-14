@@ -3,25 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nos Communautés — Diocèse</title>
+<title>Nos Communautés —DLO3</title>
 <link rel="stylesheet" href="paroisses.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="navbar.css">
 
 
 </head>
 <body>
-<button class="retour" onclick="history.back()" aria-label="Retour à la page précédente" title="Retour">
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M15 5 8 12l7 7" />
-    </svg>
-  </button>
 
-<header>
+<div class="navbar">
+  <div class="logo">
+    <img src="logo.jpeg" alt="Logo du site">
+  </div>
+  <ul>
+    <li><a href="Accueil.html">ACCUEIL</a></li>
+    <li class="actif"><a href="paroisses.html">PAROISSES</a></li>
+    <li><a href="Activites.html">ACTIVITÉS</a></li>
+    <li><a href="Actualites.html">ACTUALITÉS</a></li>
+    <li><a href="Galerie.html">GALERIE</a></li>
+    <li><a href="Apropos.html">À PROPOS</a></li>
+    <li><a href="Contact.html">CONTACT</a></li>
+  </ul>
+  <button id="join">REJOINDRE LES SERVANTS
+    <img src="join.jpg" alt="Rejoindre les servants" class="ico">
+  </button>
+</div>
+
+<header class="page-header">
   <p class="eyebrow">Répertoire diocésain</p>
-  <h1>Nos <span class="compte" id="total">22</span> communautés</h1>
-  <p class="sous-titre">Paroisses, quasi-paroisses et stations secondaires qui composent l' archidiocèse. Utilisez la recherche pour retrouver une communauté par son nom ou sa localité.</p>
+  <h1>Nos <span class="compte" id="total">23</span> communautés</h1>
+  <p class="sous-titre">Paroisses, quasi-paroisses, stations secondaires et sanctuaire qui composent le doyenné. Utilisez la recherche pour retrouver une communauté par son nom ou sa localité.</p>
   <div class="recherche">
     <input type="search" id="champ-recherche" placeholder="Rechercher une paroisse, une localité…" aria-label="Rechercher une communauté">
   </div>
@@ -39,7 +53,7 @@
     <h3 id="modale-titre"></h3>
     <dl class="modale-details">
       <div>
-        <dt>Curé</dt>
+        <dt id="modale-cure-label">Curé</dt>
         <dd id="modale-cure"></dd>
       </div>
       <div>
@@ -55,41 +69,69 @@
 </div>
 
 <script>
-  // Chaque communauté : { id, type, vocable, lieu, cure, responsable:{nom,tel}, localisation }
-  // ⚠️ Les champs "cure", "responsable" et "localisation" sont à compléter avec les vraies
-  // informations de chaque communauté — ils sont ici à "À renseigner" par défaut.
+  // Chaque communauté : { id, type, vocable, lieu, cure ou recteur, responsable:{nom,tel}, localisation, carte, lat, lng }
+  // - Pour les paroisses/quasi-paroisses/stations : renseigner "cure".
+  // - Pour un sanctuaire : renseigner "recteur" à la place (le libellé de la fiche s'adapte tout seul).
+  // - "carte" (optionnel) : vrai lien Google Maps. Sinon "lat"/"lng" pointe précisément dessus.
+  //   En dernier recours seulement, recherche approximative à partir de "localisation".
   const communautes = [
-    { id: "adidogome", type: "Paroisse", vocable: "Marie Mère du Rédempteur", lieu: "Adidogomé", cure:"RP Michel ESSEH", responsable:{nom:"Simon",tel:"+228#"} },
-    
-    { id: "amandahome", type: "Paroisse", vocable: "Jésus Miséricordieux", lieu: "Amandahomé", cure:"RP Paul AMAGLO", responsable:{nom:"Fr Victor",tel:"+228#"} },
-    { id: "apedokoe", type: "Paroisse", vocable: "Sancta Maria Regina Pacis", lieu: "Apédokoé", cure:"RP Georges GBAFA", responsable:{nom:"Fr Emmanuel ADJOGUENU",tel:"+22891427225"} },
-    { id: "yokoe", type: "Paroisse", vocable: "Saint Jean-Baptiste", lieu: "Yokoé", cure:"RP Darius ADJANGBA", responsable:{nom:"Fr Léonce",tel:"+228#"} },
-    { id: "wonyome", type: "Paroisse", vocable: "Notre Dame du Sacré-Cœur", lieu: "Wonyomé", cure:"RP Placide TEFE", responsable:{nom:"Fr Aimé-césaire",tel:"+228#"} },
-    { id: "logote", type: "Paroisse", vocable: "Christ-Ressuscité", lieu: "Sagbado-Logoté", cure:"RP Victor ATSOUTSE", responsable:{nom:"Fr Christophe",tel:"+228#"} },
-    { id: "segbe", type: "Paroisse", vocable: "Notre Dame du Perpétuel Secours", lieu: "Ségbé", cure:"RP Gaston AMOUZOU", responsable:{nom:"Fr Nicodème EKLOU",tel:"+228#"} },
-    { id: "akato", type: "Paroisse", vocable: "Saint Joseph", lieu: "Akato-viépé", cure:"RP Augstin SOEDJEDE", responsable:{nom:"Michel",tel:"+228#"} },
-    { id: "agblegan", type: "Paroisse", vocable: "Notre Dame de la Miséricorde", lieu: "Agblégan", cure:"RP Romain NAYO", responsable:{nom:"Fr Modeste",tel:"+228#"} },
-    { id: "kohe", type: "Paroisse", vocable: "Notre Dame de la Médaille Miraculeuse", lieu: "Kohé", cure:"RP David SOSSOU", responsable:{nom:"Emile",tel:"#+228"} },
-    { id: "zossime", type: "Paroisse", vocable: "Sainte Rita", lieu: "Zossimé", cure:"RP Philippe Jacques GAMISSO", responsable:{nom:"#",tel:"#+228"} },
-    { id: "balissime", type: "Quasi-Paroisse", vocable: "Saint-Esprit", lieu: "Balissimé" , cure:"RP Jean AMEGNEKOU", responsable:{nom:"Fr Prosper",tel:"+228#"}},
-    { id: "agokpanou", type: "Quasi-Paroisse", vocable: "Saint Michel Archange", lieu: "Klémé-Agokpanou", cure:"RP Dominique ASSIGNON", responsable:{nom:"#",tel:"+228#"} },
-    { id: "logogome", type: "Quasi-Paroisse", vocable: "Virgo Potens", lieu: "Logogomé", cure:"RP Florentin TOKOU", responsable:{nom:"Fr Sylvanus",tel:"+228#"} },
-    { id: "agotile", type: "Quasi-Paroisse", vocable: "Notre Dame du Rosaire", lieu: "Sagbado-Agotimé", cure:"RP Marie-Athanase ATTIGNON", responsable:{nom:"Fr Daniel",tel:"+228#"} },
-    { id: "soviepe", type: "Quasi-Paroisse", vocable: "Saint Daniel Comboni", lieu: "Avédji-Anyigbé-Soviépé", cure:"RP Saturnin POGNON", responsable:{nom:"#",tel:"+228#"} },
-    { id: "glinkomegan", type: "Station secondaire", vocable: "Notre Dame de Lourdes", lieu: "Gblinkomégan", cure:"RP Michel ESSEH", responsable:{nom:"Pacôme",tel:"+228#"} },
-    { id: "wessome", type: "Station secondaire", vocable: "Saint Christophe", lieu: "Wessomé", cure:"RP Michel ESSEH", responsable:{nom:"#",tel:"+228#"} },
-    { id: "lankouvi1", type: "Station secondaire", vocable: "Marie Porte du Ciel", lieu: "Lankouvi", cure:"RP Michel ESSEH", responsable:{nom:"Fr Raphaël",tel:"+228#"} },
-    { id: "lankouvi2", type: "Station secondaire", vocable: "Saint Charles Lwanga", lieu: "Lankouvi-Zogbédji", cure:"RP Michel ESSEH", responsable:{nom:"#",tel:"#+228"} },
-    { id: "avoeme", type: "Station secondaire", vocable: "Jésus Miséricordieux", lieu: "Akato-Avoémé", cure:"RP Michel ESSEH", responsable:{nom:"#",tel:"+228#"} },
-    { id: "djigbe", type: "Station secondaire", vocable: "Saint Justin", lieu: "Klémé-Djigbé", cure:"RP Michel ESSEH", responsable:{nom:"#",tel:"+228#"} },
+    { id: "adidogome", type: "Paroisse", vocable: "Marie Mère du Rédempteur", lieu: "Adidogomé", cure:"RP Michel ESSEH", responsable:{nom:"Fr Simon",tel:"+22879925369"}, lat:6.183107023757032, lng:1.1684021510975247 },
+    { id: "awatame", type: "Sanctuaire", vocable: "Saint Sacrement", lieu: "Awatamé", recteur:"RP Paul AMOUZOU", responsable:{nom:"#",tel:"+228#"}, lat:6.174395025466483, lng:1.1738167934268362 },
+    { id: "amandahome", type: "Paroisse", vocable: "Jésus Miséricordieux", lieu: "Amandahomé", cure:"RP Paul AMAGLO", responsable:{nom:"Fr Victor",tel:"+228#"}, lat:6.491640034423829, lng: 1.2890732241119904},
+    { id: "apedokoe", type: "Paroisse", vocable: "Sancta Maria Regina Pacis", lieu: "Apédokoé", cure:"RP Georges GBAFA", responsable:{nom:"Fr Emmanuel ADJOGUENU",tel:"+22891427225"}, lat:6.2044725857032486,lng:  1.1414432106153627},
+    { id: "yokoe", type: "Paroisse", vocable: "Saint Jean-Baptiste", lieu: "Yokoé", cure:"RP Johannes AZIABLI", responsable:{nom:"Fr Léonce",tel:"+22897625756"}, lat:6.178151991687143, lng:1.14479208177982},
+    { id: "wonyome", type: "Paroisse", vocable: "Notre Dame du Sacré-Cœur", lieu: "Wonyomé", cure:"RP Placide TEFE", responsable:{nom:"Fr Aimé-césaire",tel:"+22893812395"}, lat:6.191473909451884, lng:  1.149823617498672},
+    { id: "logote", type: "Paroisse", vocable: "Christ-Ressuscité", lieu: "Sagbado-Logoté", cure:"RP Victor ATSOUTSE", responsable:{nom:"Fr Christophe",tel:"+22892738605"}, lat: 6.194324523091906, lng:1.1278396694464115 },
+    { id: "segbe", type: "Paroisse", vocable: "Notre Dame du Perpétuel Secours", lieu: "Ségbé", cure:"RP Gaston AMOUZOU", responsable:{nom:"Fr Nicodème EKLOU",tel:"+22896554334"}, lat:6.193893623448216,  lng: 1.1127690106152526},
+    { id: "akato", type: "Paroisse", vocable: "Saint Joseph", lieu: "Akato-viépé", cure:"RP Augstin SOEDJEDE", responsable:{nom:"Fr Michel",tel:"+22873047754"}, lat:6.186597782691736,  lng:1.1034992280174154 },
+    { id: "agblegan", type: "Paroisse", vocable: "Notre Dame de la Miséricorde", lieu: "Agblégan", cure:"RP Romain NAYO", responsable:{nom:"Fr Modeste",tel:"+22891004775"}, lat:6.173978859563276,  lng: 1.1589029971209968},
+    { id: "kohe", type: "Paroisse", vocable: "Notre Dame de la Médaille Miraculeuse", lieu: "Kohé", cure:"RP David SOSSOU", responsable:{nom:"Emile",tel:"+22898802832"}, lat: 6.225960789621908,  lng:1.1381320559419392 },
+    { id: "zossime", type: "Paroisse", vocable: "Sainte Rita", lieu: "Zossimé", cure:"RP Philippe Jacques GAMISSO", responsable:{nom:"#",tel:"+228#"}, lat: 6.231464310002285, lng:1.1549420510979174 },
+    { id: "balissime", type: "Quasi-Paroisse", vocable: "Saint-Esprit", lieu: "Balissimé", cure:"RP Jean AMEGNEKOU", responsable:{nom:"Fr Prosper",tel:"+22896170504"}, lat:6.203667821730847,  lng:1.1208339191883854 },
+    { id: "agokpanou", type: "Quasi-Paroisse", vocable: "Saint Michel Archange", lieu: "Klémé-Agokpanou", cure:"RP Dominique ASSIGNON", responsable:{nom:"#",tel:"+228#"}, lat:6.213570978349144,  lng:1.1106053412977992 },
+    { id: "logogome", type: "Quasi-Paroisse", vocable: "Virgo Potens", lieu: "Logogomé", cure:"RP Florentin TOKOU", responsable:{nom:"Fr Sylvanus",tel:"+22891426446"}, lat: 6.213838020199823,  lng: 1.1481544817801368},
+    { id: "agotile", type: "Quasi-Paroisse", vocable: "Notre Dame du Rosaire", lieu: "Sagbado-Agotimé", cure:"RP Marie-Athanase ATTIGNON", responsable:{nom:"Fr Daniel",tel:"+22896859302"}, lat: 6.187991388700796,  lng: 1.136765771979967},
+    { id: "soviepe", type: "Quasi-Paroisse", vocable: "Saint Daniel Comboni", lieu: "Avédji-Anyigbé-Soviépé", cure:"RP Saturnin POGNON", responsable:{nom:"#",tel:"+228#"}, lat: 6.1715729938158015,  lng:1.1787633492503051 },
+    { id: "glinkomegan", type: "Station secondaire", vocable: "Notre Dame de Lourdes", lieu: "Gblinkomégan", cure:"RP Michel ESSEH", responsable:{nom:"Pacôme",tel:"+22872120852"}, lat:6.182168522700481, lng:1.1576424224493604 },
+    { id: "wessome", type: "Station secondaire", vocable: "Saint Christophe", lieu: "Wessomé", cure:"RP Michel ESSEH", responsable:{nom:"#",tel:"+228#"}, lat:6.198005285656681, lng: 1.1659753241094069},
+    { id: "lankouvi1", type: "Station secondaire", vocable: "Marie Porte du Ciel", lieu: "Lankouvi", cure:"RP Michel ESSEH", responsable:{nom:"Fr Raphaël",tel:"+22892599183"}, lat:6.180276255352774,  lng:1.125107852944531 },
+    { id: "lankouvi2", type: "Station secondaire", vocable: "Saint Charles Lwanga", lieu: "Lankouvi-Zogbédji", cure:"RP Michel ESSEH", responsable:{nom:"#",tel:"+228#"}, lat: 6.170647993928604, lng: 1.1164614836268192 },
+    { id: "avoeme", type: "Station secondaire", vocable: "Jésus Miséricordieux", lieu: "Akato-Avoémé", cure:"RP Michel ESSEH", responsable:{nom:"#",tel:"+228#"}, lat:6.201115833198081,  lng: 1.0871062208275464},
+    { id: "djigbe", type: "Station secondaire", vocable: "Saint Justin", lieu: "Klémé-Djigbé", cure:"RP Michel ESSEH", responsable:{nom:"#",tel:"+228#"}, lat:6.21118238649098, lng: 1.0963573241095215},
   ].map(c => ({
     cure: "À renseigner",
+    recteur: "À renseigner",
     responsable: { nom: "À renseigner", tel: "" },
     localisation: `${c.lieu}, Lomé, Togo`,
+    carte: "",
+    lat: null,
+    lng: null,
     ...c
   }));
 
-  const ordreTypes = ["Paroisse", "Quasi-Paroisse", "Station secondaire"];
+  // Construit le lien Google Maps, du plus précis au moins précis :
+  // 1. "carte" si un vrai lien de partage a été renseigné
+  // 2. "lat"/"lng" si des coordonnées GPS précises ont été renseignées (pointe exactement dessus)
+  // 3. sinon, recherche approximative à partir du texte de "localisation"
+  function urlCarte(c) {
+    if (c.carte) return c.carte;
+    if (c.lat != null && c.lng != null) {
+      // Le format "q=lat,lng(label)" garde le point exact ET affiche le nom
+      // de la communauté sur le repère, au lieu des coordonnées brutes.
+      const etiquette = encodeURIComponent(`${c.vocable} — ${c.lieu}`);
+      return `https://www.google.com/maps?q=${c.lat},${c.lng}(${etiquette})`;
+    }
+    const requete = encodeURIComponent(c.localisation || `${c.lieu}, Lomé, Togo`);
+    return `https://www.google.com/maps/search/?api=1&query=${requete}`;
+  }
+
+  const ordreTypes = ["Paroisse", "Quasi-Paroisse", "Station secondaire", "Sanctuaire"];
+  const iconesParType = {
+    "Paroisse": "⛪",
+    "Quasi-Paroisse": "🏛️",
+    "Station secondaire": "📍",
+    "Sanctuaire": "✝️",
+  };
   const conteneur = document.getElementById("conteneur");
   const messageVide = document.getElementById("message-vide");
   document.getElementById("total").textContent = communautes.length;
@@ -117,6 +159,7 @@
         <div class="grille">
           ${items.map(c => `
             <article class="carte" data-id="${c.id}" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Voir les informations de ${c.vocable}, ${c.lieu}">
+              <div class="icone" aria-hidden="true">${iconesParType[c.type] || "⛪"}</div>
               <div class="vocable">${c.vocable}</div>
               <div class="lieu">${c.lieu}</div>
             </article>
@@ -137,6 +180,7 @@
   const modaleFond = document.getElementById("modale-fond");
   const modaleTitre = document.getElementById("modale-titre");
   const modaleType = document.getElementById("modale-type");
+  const modaleCureLabel = document.getElementById("modale-cure-label");
   const modaleCure = document.getElementById("modale-cure");
   const modaleResponsable = document.getElementById("modale-responsable");
   const modaleLocalisation = document.getElementById("modale-localisation");
@@ -146,9 +190,12 @@
     const c = communautes.find(x => x.id === id);
     if (!c) return;
 
+    const estSanctuaire = c.type === "Sanctuaire";
+
     modaleType.textContent = c.type;
+    modaleCureLabel.textContent = estSanctuaire ? "Recteur" : "Curé";
     modaleTitre.textContent = `${c.vocable} — ${c.lieu}`;
-    modaleCure.textContent = c.cure || "À renseigner";
+    modaleCure.textContent = (estSanctuaire ? c.recteur : c.cure) || "À renseigner";
 
     modaleResponsable.innerHTML = "";
     modaleResponsable.append(c.responsable?.nom || "À renseigner");
@@ -159,7 +206,15 @@
       modaleResponsable.append(" — ", lien);
     }
 
-    modaleLocalisation.textContent = c.localisation || "À renseigner";
+    modaleLocalisation.innerHTML = "";
+    modaleLocalisation.append(c.localisation || "À renseigner");
+    const lienCarte = document.createElement("a");
+    lienCarte.href = urlCarte(c);
+    lienCarte.target = "_blank";
+    lienCarte.rel = "noopener noreferrer";
+    lienCarte.className = "lien-carte";
+    lienCarte.textContent = "Voir sur Google Maps →";
+    modaleLocalisation.append(document.createElement("br"), lienCarte);
 
     dernierFocus = document.activeElement;
     modaleFond.hidden = false;

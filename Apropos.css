@@ -7,48 +7,18 @@
 
 body {
   display: flex;
-  align-items: stretch;
+  flex-direction: column;
   min-height: 100vh;
-  position: relative;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
 }
 
-/* --- Bouton retour --- */
-.retour {
-  position: fixed;
-  top: 1.5rem;
-  left: 1.5rem;
-  z-index: 10;
-  width: 42px;
-  height: 42px;
-  border: none;
-  border-radius: 50%;
-  background-color: #ffffff;
-  color: #0a1f5c;
+.page-body {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(10, 31, 92, 0.18);
-  transition: background-color 0.18s ease, transform 0.18s ease;
-}
-
-.retour:hover {
-  background-color: #d4a340;
-  color: #ffffff;
-  transform: translateY(-1px);
-}
-
-.retour:active {
-  transform: translateY(0);
-}
-
-.retour:focus-visible {
-  outline: 2px solid #d4a340;
-  outline-offset: 2px;
+  align-items: stretch;
+  flex: 1;
 }
 
 /* --- Colonne image --- */
@@ -66,7 +36,6 @@ body {
 .explain {
   flex: 0 0 40%;
   padding: 2.5rem 2rem;
-  padding-top: 5rem;
   background-color: #F6EFE1;
 }
 

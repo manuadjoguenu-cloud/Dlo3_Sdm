@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SDM_DLO3_À_PROPOS</title>
+    <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="Apropos.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,65 +12,79 @@
 </head>
 <body>
 
-  <button class="retour" onclick="history.back()" aria-label="Retour à la page précédente" title="Retour">
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M15 5 8 12l7 7" />
-    </svg>
-  </button>
-
-  <div class="explain">
-    <h2>À propos du DLO3</h2>
-    <h1>Qui sommes-nous ?</h1>
-    <div id="trait"></div>
-    <p id="present">
-      Le doyenné Lomé-Ouest 3 (DLO3) est un regroupement de seize paroisses catholiques
-      situées dans la partie ouest de la ville de Lomé, au Togo.<br><br>
-
-      Il rassemble les servants de Messe autour des valeurs de foi, de service, de discipline et de fraternité.<br><br>
-
-      Notre mission est de promouvoir la formation liturgique, de renforcer la communication entre les
-      paroisses et d'encourager la participation active des jeunes à la vie de l'Église.
-    </p>
+  <div class="navbar">
+    <div class="logo">
+      <img src="logo.jpeg" alt="Logo du site">
+    </div>
+    <ul>
+      <li><a href="Accueil.html">ACCUEIL</a></li>
+      <li><a href="paroisses.html">PAROISSES</a></li>
+      <li><a href="Activites.html">ACTIVITÉS</a></li>
+      <li><a href="Actualites.html">ACTUALITÉS</a></li>
+      <li><a href="Galerie.html">GALERIE</a></li>
+      <li class="actif"><a href="Apropos.html">À PROPOS</a></li>
+      <li><a href="Contact.html">CONTACT</a></li>
+    </ul>
+    <button id="join">REJOINDRE LES SERVANTS
+      <img src="join.jpg" alt="Rejoindre les servants" class="ico">
+    </button>
   </div>
 
-  <div class="presentation-box">
-    <p><span>LE DLO3</span> EN CHIFFRES</p>
+  <div class="page-body">
+    <div class="explain">
+      <h2>À propos du DLO3</h2>
+      <h1>Qui sommes-nous ?</h1>
+      <div id="trait"></div>
+      <p id="present">
+        Le doyenné Lomé-Ouest 3 (DLO3) est un regroupement de seize paroisses catholiques
+        situées dans la partie ouest de la ville de Lomé, au Togo.<br><br>
 
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="icon">⛪</div>
-        <strong>22</strong>
-        <span>Communautés</span>
-      </div>
-      <div class="stat-card">
-        <div class="icon">⛪</div>
-        <strong>11</strong>
-        <span>Paroisses</span>
-      </div>
-      <div class="stat-card">
-        <div class="icon">🏛️</div>
-        <strong>5</strong>
-        <span>Quasi-paroisses</span>
-      </div>
-      <div class="stat-card">
-        <div class="icon">📍</div>
-        <strong>6</strong>
-        <span>Stations secondaires</span>
-      </div>
-      <div class="stat-card">
-        <div class="icon">👥</div>
-        <strong>500+</strong>
-        <span>Servants</span>
-      </div>
-      <div class="stat-card">
-        <div class="icon">📅</div>
-        <strong>Toute l'année</strong>
-        <span>Activités</span>
-      </div>
-      <div class="stat-card">
-        <div class="icon">✝️</div>
-        <strong>1</strong>
-        <span>Grande famille</span>
+        Il rassemble les servants de Messe autour des valeurs de foi, de service, de discipline et de fraternité.<br><br>
+
+        Notre mission est de promouvoir la formation liturgique, de renforcer la communication entre les
+        paroisses et d'encourager la participation active des jeunes à la vie de l'Église.
+      </p>
+    </div>
+
+    <div class="presentation-box">
+      <p><span>LE DLO3</span> EN CHIFFRES</p>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="icon">⛪</div>
+          <strong>22</strong>
+          <span>Communautés</span>
+        </div>
+        <div class="stat-card">
+          <div class="icon">⛪</div>
+          <strong>11</strong>
+          <span>Paroisses</span>
+        </div>
+        <div class="stat-card">
+          <div class="icon">🏛️</div>
+          <strong>5</strong>
+          <span>Quasi-paroisses</span>
+        </div>
+        <div class="stat-card">
+          <div class="icon">📍</div>
+          <strong>6</strong>
+          <span>Stations secondaires</span>
+        </div>
+        <div class="stat-card">
+          <div class="icon">👥</div>
+          <strong>500+</strong>
+          <span>Servants</span>
+        </div>
+        <div class="stat-card">
+          <div class="icon">📅</div>
+          <strong>Toute l'année</strong>
+          <span>Activités</span>
+        </div>
+        <div class="stat-card">
+          <div class="icon">👨‍👩‍👧‍👦</div>
+          <strong>1</strong>
+          <span>Grande famille</span>
+        </div>
       </div>
     </div>
   </div>

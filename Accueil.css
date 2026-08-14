@@ -3,36 +3,6 @@
     padding: 0;
     box-sizing: border-box;
 }
-.navbar {
-    background-color: rgb(255, 255, 255);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    border: 1px solid rgb(186, 166, 19);
-    border-radius: 4px;
-}
-
-.navbar ul {
-    display: flex;
-    list-style: none;
-    margin: 10px;
-    padding: 10px;
-}
-
-.navbar li {
-    margin: 0 10px;
-}
-.navbar li:hover {
-    border-bottom: 4px solid rgb(186, 166, 19);
-}
-
-
-.navbar a {
-    text-decoration: none;
-    color: inherit;
-}
 
 h4{
     color: black;
@@ -41,35 +11,6 @@ h4{
     margin-top: 20px;
 }
 
-.logo img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-   float: left;
-    margin-left: 10px;
-}
-
-#join{
-   color: rgb(46, 48, 50);
-    background-color: rgb(186, 166, 19);
-    width: 200px;
-    height: 40px;
-    text-align: center;
-    font-size: 11px;
-    font-weight: bold;
-    border: none;
-    border-radius: 30px;
-     box-shadow: 0 4px 10px rgba(69, 56, 56, 0.3);
-    transition: all 0.3s ease;
-    cursor: pointer;
-   
-}
-
-#join:hover{
-    background-color: rgba(186, 166, 19, 0.575);
-    transform: translateY(-3px);
-    transition: all 0.3s ease;
-}
 body {
     color: rgb(17, 9, 9);
     font-family: Arial, sans-serif;
@@ -77,8 +18,6 @@ body {
     font-size: bold;
     background-size: cover;
     background-color: #F6EFE1;
-    
-    
 }
 
 span {
@@ -130,32 +69,16 @@ span {
     cursor: pointer;
 }
 
-
-
 .voir:hover{
     background-color: rgba(93, 92, 77, 0.899);
      transform: translateY(-3px);
     transition: all 0.3s ease;
 }
 
-@media  (max-width: 768px) {
-    .navbar ul {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .navbar li {
-        margin: 5px 0;
-    }
-    
-}
-
 .cover{
     background-position: center;
     width: 100%;
     height: 100%;
-   
-    
     object-fit: cover;
 }
 
@@ -168,13 +91,19 @@ span {
     color: rgb(0, 0, 0);
 }
 
-.ico{
-    width: 20px;
-    height: 20px;
-    margin-left: 10px;
-    float: left;
-}
 img{
-   
    opacity: 0.4;
+}
+
+button a{
+    text-decoration: none;
+    color: rgb(46, 48, 50);
+}
+
+button a:hover{
+    color: rgb(46, 48, 50);
+}
+
+button a:visited{
+    color:rgb(46, 48, 50) ;
 }
