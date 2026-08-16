@@ -13,15 +13,13 @@
   *{ margin:0; padding:0; box-sizing:border-box; }
 
   body{
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
     background: var(--ivoire);
     background-image:
       radial-gradient(circle at 12% 8%, rgba(179,129,44,.08), transparent 40%),
       radial-gradient(circle at 88% 92%, rgba(122,35,49,.06), transparent 45%);
     color: var(--encre);
     font-family: 'Karla', sans-serif;
+    padding-bottom: 4rem;
     user-select: none;
   }
 

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% block titre %}Servants de Messe - DLO3{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'Accueil.css' %}">{% endblock %}
+
+{% block content %}
+<div class="description">
+    <h1>Bienvenue sur le site officiel <br>des <span>Servants de Messe</span> <br>du doyenné Lomé-Ouest 3</h1>
+    <h1 class="underline">____</h1>
+    <h4>Le présent site est un site catholique destiné à fournir des informations concernant les activités et programmes des servants de Messe du doyenné lomé-ouest 3. <br>
+        Il favorise la communication entre les différentes paroisses et accompagne la formation spirituelle et liturgique des servants de Messe.
+    </h4>
+
+    <a class="decouvrir" href="{% url 'apropos' %}">DÉCOUVRIR LE DLO3</a>
+    <a class="voir" href="{% url 'activites' %}">VOIR LES ACTIVITÉS</a>
+</div>
+{% endblock %}

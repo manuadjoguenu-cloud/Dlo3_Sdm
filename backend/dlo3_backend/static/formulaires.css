@@ -1,0 +1,152 @@
+:root{
+  --ivoire: #F6EFE1;
+  --panneau: #FFFDF8;
+  --encre: #2B2118;
+  --or: #B3812C;
+  --or-clair: #E4B65C;
+  --bordeaux: #7A2331;
+  --vert: #3F5D42;
+  --ombre: rgba(43, 33, 24, .12);
+}
+
+body{
+  background: var(--ivoire);
+  color: var(--encre);
+  font-family: 'Karla', Arial, sans-serif;
+}
+
+.page-header{
+  position: relative;
+  padding: 3.5rem 6vw 2.5rem;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(43,33,24,.1);
+}
+.eyebrow{
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  font-size: .72rem;
+  font-weight: 700;
+  color: var(--bordeaux);
+  margin-bottom: .9rem;
+}
+.page-header h1{
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: clamp(2rem, 4.5vw, 3rem);
+}
+.page-header h1 .compte{
+  font-style: italic;
+  font-weight: 600;
+  color: var(--or);
+}
+.sous-titre{
+  margin-top: 1rem;
+  max-width: 48ch;
+  color: rgba(43,33,24,.72);
+  line-height: 1.55;
+}
+
+.contact-box{ padding: 2.5rem 6vw 4rem; }
+.contact-grille{
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 1.5rem;
+  max-width: 1000px;
+}
+
+.contact-formulaire{
+  background: var(--panneau);
+  border: 1px solid rgba(43,33,24,.1);
+  border-radius: 8px;
+  padding: 2rem;
+}
+.contact-formulaire p{ margin-bottom: 1.1rem; }
+.contact-formulaire label{
+  display: block;
+  font-size: .78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--vert);
+  margin-bottom: .35rem;
+}
+.contact-formulaire input,
+.contact-formulaire textarea,
+.contact-formulaire select{
+  width: 100%;
+  border: 1px solid rgba(43,33,24,.25);
+  border-radius: 3px;
+  padding: .7rem .9rem;
+  font-family: 'Karla', sans-serif;
+  font-size: .92rem;
+  background: #fff;
+}
+.contact-formulaire input:focus,
+.contact-formulaire textarea:focus{
+  outline: none;
+  border-color: var(--or);
+  box-shadow: 0 0 0 3px rgba(179,129,44,.18);
+}
+.contact-formulaire .errorlist{
+  list-style: none;
+  color: var(--bordeaux);
+  font-size: .82rem;
+  margin-top: .3rem;
+}
+
+.bouton-envoyer{
+  padding: .8rem 1.8rem;
+  background: var(--or);
+  color: var(--panneau);
+  border: none;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: .9rem;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(179,129,44,.3);
+  transition: background .18s ease, transform .18s ease;
+}
+.bouton-envoyer:hover{ background: var(--bordeaux); transform: translateY(-2px); }
+
+.contact-coordonnees{
+  background: rgb(46, 48, 50);
+  color: rgba(255,255,255,.9);
+  border-radius: 8px;
+  padding: 2rem 1.6rem;
+  height: fit-content;
+}
+.contact-coordonnees h2{
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  color: #fff;
+}
+.coordonnee{ display: flex; gap: .9rem; margin-bottom: 1.4rem; }
+.coordonnee:last-child{ margin-bottom: 0; }
+.coordonnee-label{
+  display: block;
+  font-size: .7rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: rgb(186, 166, 19);
+}
+.coordonnee-valeur{ font-size: .92rem; color: rgba(255,255,255,.85); }
+
+.messages-django{
+  list-style: none;
+  max-width: 1000px;
+  margin: 1.5rem 6vw 0;
+  padding: 0;
+}
+.messages-django li{
+  background: rgba(63, 93, 66, .12);
+  border: 1px solid var(--vert);
+  color: var(--vert);
+  padding: .8rem 1.2rem;
+  border-radius: 4px;
+  font-size: .92rem;
+}
+
+@media (max-width: 768px){
+  .contact-grille{ grid-template-columns: 1fr; }
+}

@@ -1,0 +1,275 @@
+:root{
+  --ivoire: #F6EFE1;
+  --panneau: #FFFDF8;
+  --encre: #2B2118;
+  --or: #B3812C;
+  --or-clair: #E4B65C;
+  --bordeaux: #7A2331;
+  --vert: #3F5D42;
+  --ombre: rgba(43, 33, 24, .12);
+  --rayon: 3px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Karla', Arial, sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--ivoire);
+  background-image:
+    radial-gradient(circle at 90% 6%, rgba(179,129,44,.08), transparent 40%),
+    radial-gradient(circle at 6% 96%, rgba(122,35,49,.06), transparent 45%);
+  color: var(--encre);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* ---------- En-tête ---------- */
+.page-header{
+  position: relative;
+  padding: 3.5rem 6vw 2rem;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(43,33,24,.1);
+}
+
+.page-header::before{
+  content:"";
+  position:absolute;
+  top:-40px; right:-40px;
+  width: 240px; height: 240px;
+  border: 1px solid var(--or-clair);
+  border-radius:50%;
+  opacity:.35;
+}
+.page-header::after{
+  content:"";
+  position:absolute;
+  top:10px; right:10px;
+  width: 180px; height: 180px;
+  border: 1px solid var(--bordeaux);
+  border-radius:50%;
+  opacity:.25;
+}
+
+.eyebrow{
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  font-size: .72rem;
+  font-weight: 700;
+  color: var(--bordeaux);
+  margin-bottom: .9rem;
+}
+
+.page-header h1{
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  line-height: 1.1;
+  max-width: 20ch;
+}
+
+.page-header h1 .compte{
+  font-style: italic;
+  font-weight: 600;
+  color: var(--or);
+}
+
+.sous-titre{
+  margin-top: 1rem;
+  max-width: 48ch;
+  color: rgba(43,33,24,.72);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+/* ---------- Filtres ---------- */
+.filtres{
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  margin-top: 2rem;
+}
+
+.filtre{
+  border: 1px solid rgba(43,33,24,.2);
+  background: var(--panneau);
+  color: var(--encre);
+  font-family: 'Karla', sans-serif;
+  font-size: .85rem;
+  font-weight: 700;
+  padding: .5rem 1.1rem;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background .15s ease, color .15s ease, border-color .15s ease;
+}
+
+.filtre:hover{
+  border-color: var(--or);
+}
+
+.filtre.actif{
+  background: var(--or);
+  border-color: var(--or);
+  color: var(--panneau);
+}
+
+/* ---------- Grille de la galerie ---------- */
+.galerie-box{ padding: 2.5rem 6vw 4rem; }
+
+.galerie-grille{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1.2rem;
+}
+
+.photo{
+  background: var(--panneau);
+  border: 1px solid rgba(43,33,24,.1);
+  border-radius: var(--rayon);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+.photo:focus-visible{
+  outline: 2px solid var(--or);
+  outline-offset: 2px;
+}
+
+.photo:hover, .photo:focus-visible{
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px var(--ombre);
+  border-color: rgba(179,129,44,.35);
+}
+
+.photo-vignette{
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(160deg, rgba(179,129,44,.16), rgba(122,35,49,.1));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photo-vignette img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.photo-icone{
+  font-size: 2.2rem;
+  opacity: .55;
+}
+
+.photo figcaption{
+  padding: .8rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+}
+
+.photo-categorie{
+  font-size: .68rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  font-weight: 700;
+  color: var(--vert);
+}
+
+.photo-legende{
+  font-size: .88rem;
+  color: var(--encre);
+  line-height: 1.35;
+}
+
+.vide{
+  text-align:center;
+  padding: 3rem 0;
+  color: rgba(43,33,24,.5);
+  font-style: italic;
+  display:none;
+}
+
+/* ---------- Visionneuse (lightbox) ---------- */
+.lightbox-fond{
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(43,33,24,.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+.lightbox-fond[hidden]{ display: none; }
+
+.lightbox{
+  position: relative;
+  background: var(--panneau);
+  border-radius: 6px;
+  max-width: 560px;
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0,0,0,.4);
+}
+
+.lightbox-fermer{
+  position: absolute;
+  top: .9rem; right: .9rem;
+  z-index: 2;
+  width: 32px; height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255,255,255,.85);
+  color: var(--encre);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background .15s ease;
+}
+.lightbox-fermer:hover{ background: #fff; color: var(--bordeaux); }
+
+.lightbox-image{
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(160deg, rgba(179,129,44,.18), rgba(122,35,49,.12));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox-image img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.lightbox-image .photo-icone{ font-size: 3rem; }
+
+.lightbox-categorie{
+  margin: 1.1rem 1.3rem 0;
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-weight: 700;
+  color: var(--bordeaux);
+}
+
+.lightbox-legende{
+  margin: .3rem 1.3rem 1.2rem;
+  font-size: .95rem;
+  color: var(--encre);
+}
+
+@media (max-width: 480px){
+  .page-header{ padding: 3rem 5vw 1.5rem; }
+  .galerie-box{ padding: 2rem 5vw 3rem; }
+}

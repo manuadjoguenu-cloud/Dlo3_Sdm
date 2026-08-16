@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titre %}DLO3{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'navbar.css' %}">
+    {% block css %}{% endblock %}
+</head>
+<body>
+
+<div class="navbar">
+  <button class="nav-retour" onclick="history.back()" aria-label="Retour à la page précédente" title="Retour">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M15 5 8 12l7 7" />
+    </svg>
+  </button>
+  <div class="logo">
+    <img src="{% static 'logo.jpeg' %}" alt="Logo du site">
+  </div>
+  <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Ouvrir le menu">
+    <span class="nav-toggle-icone">☰</span>
+  </button>
+  <div class="nav-menu" id="nav-menu">
+    <ul>
+      <li{% if page_active == 'accueil' %} class="actif"{% endif %}><a href="{% url 'accueil' %}">ACCUEIL</a></li>
+      <li{% if page_active == 'paroisses' %} class="actif"{% endif %}><a href="{% url 'paroisses' %}">PAROISSES</a></li>
+      <li{% if page_active == 'activites' %} class="actif"{% endif %}><a href="{% url 'activites' %}">ACTIVITÉS</a></li>
+      <li><a href="#">ACTUALITÉS</a></li>
+      <li{% if page_active == 'galerie' %} class="actif"{% endif %}><a href="{% url 'galerie' %}">GALERIE</a></li>
+      <li{% if page_active == 'apropos' %} class="actif"{% endif %}><a href="{% url 'apropos' %}">À PROPOS</a></li>
+      <li{% if page_active == 'contact' %} class="actif"{% endif %}><a href="{% url 'contact' %}">CONTACT</a></li>
+    </ul>
+    <a href="#" id="don">FAIRE UN DON
+      <img src="{% static 'join.jpg' %}" alt="Faire un don" class="ico">
+    </a>
+  </div>
+</div>
+
+{% if messages %}
+  <ul class="messages-django">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+{% block content %}{% endblock %}
+
+<script src="{% static 'navbar.js' %}"></script>
+{% block js %}{% endblock %}
+</body>
+</html>

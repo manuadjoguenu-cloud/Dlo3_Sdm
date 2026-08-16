@@ -1,0 +1,66 @@
+/* ============================================
+   Pied de page commun à toutes les pages
+   ============================================ */
+
+.site-footer{
+  margin-top: auto;
+  background-color: rgb(46, 48, 50);
+  color: rgba(255,255,255,.85);
+  padding: 1.8rem 6vw;
+}
+
+.site-footer-inner{
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.site-footer-copyright{
+  font-family: 'Karla', Arial, sans-serif;
+  font-size: .82rem;
+  line-height: 1.5;
+}
+
+.site-footer-copyright strong{
+  color: rgb(186, 166, 19);
+}
+
+.site-footer-reseaux{
+  display: flex;
+  gap: .7rem;
+}
+
+.site-footer-reseaux a{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(186, 166, 19, .5);
+  color: #ffffff;
+  text-decoration: none;
+  transition: background-color .18s ease, border-color .18s ease, transform .18s ease;
+}
+
+.site-footer-reseaux a:hover{
+  background-color: rgb(186, 166, 19);
+  border-color: rgb(186, 166, 19);
+  transform: translateY(-2px);
+}
+
+.site-footer-reseaux svg{
+  width: 18px;
+  height: 18px;
+}
+
+@media (max-width: 480px){
+  .site-footer-inner{
+    flex-direction: column;
+    text-align: center;
+  }
+}

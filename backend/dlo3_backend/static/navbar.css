@@ -54,6 +54,10 @@
 }
 
 #don {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
   color: rgb(46, 48, 50);
   background-color: rgb(186, 166, 19);
   width: 200px;
@@ -81,6 +85,31 @@
   margin-left: 10px;
   float: left;
   opacity: 0.4;
+}
+
+/* Messages Django (succès après envoi de formulaire) */
+.messages-django{
+  list-style: none;
+  max-width: 1200px;
+  margin: 1rem auto 0;
+  padding: 0 1.5rem;
+}
+.messages-django li{
+  padding: .9rem 1.2rem;
+  border-radius: 4px;
+  font-family: 'Karla', Arial, sans-serif;
+  font-size: .9rem;
+  font-weight: 700;
+}
+.messages-django li.success{
+  background: rgba(63, 93, 66, .12);
+  color: #3F5D42;
+  border: 1px solid rgba(63, 93, 66, .3);
+}
+.messages-django li.error{
+  background: rgba(122, 35, 49, .1);
+  color: #7A2331;
+  border: 1px solid rgba(122, 35, 49, .3);
 }
 
 /* Bouton retour et bouton menu : réservés au mobile */

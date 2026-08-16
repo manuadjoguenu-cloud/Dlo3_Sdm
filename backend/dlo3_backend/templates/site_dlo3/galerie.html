@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load static %}
+{% block titre %}Galerie — DLO3{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'Galerie.css' %}">{% endblock %}
+
+{% block content %}
+<header class="page-header">
+  <p class="eyebrow">En images</p>
+  <h1>Notre <span class="compte">galerie</span></h1>
+  <p class="sous-titre" id="sous-titre">{{ total }} photos disponibles — filtrez par catégorie pour retrouver un moment précis.</p>
+  <div class="filtres" id="filtres" role="tablist" aria-label="Filtrer par catégorie"></div>
+</header>
+
+<main class="galerie-box">
+  <div class="galerie-grille" id="grille"></div>
+  <p class="vide" id="message-vide">Aucune photo dans cette catégorie pour le moment.</p>
+</main>
+
+<div class="lightbox-fond" id="lightbox-fond" hidden>
+  <div class="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-legende">
+    <button class="lightbox-fermer" id="lightbox-fermer" aria-label="Fermer la photo">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <div class="lightbox-image" id="lightbox-image"></div>
+    <p class="lightbox-categorie" id="lightbox-categorie"></p>
+    <p class="lightbox-legende" id="lightbox-legende"></p>
+  </div>
+</div>
+
+{{ photos_data|json_script:"photos-data" }}
+{{ categories_data|json_script:"categories-data" }}
+{% endblock %}
+
+{% block js %}
+<script>
+  const photos = JSON.parse(document.getElementById("photos-data").textContent);
+  const categories = JSON.parse(document.getElementById("categories-data").textContent);
+
+  const conteneurFiltres = document.getElementById("filtres");
+  const grille = document.getElementById("grille");
+  const messageVide = document.getElementById("message-vide");
+  let filtreActif = "Toutes";
+
+  function rendreFiltres() {
+    conteneurFiltres.innerHTML = categories.map(cat => `
+      <button class="filtre ${cat === filtreActif ? "actif" : ""}" data-categorie="${cat}" role="tab" aria-selected="${cat === filtreActif}">
+        ${cat}
+      </button>
+    `).join("");
+  }
+
+  function rendreGrille() {
+    const items = filtreActif === "Toutes" ? photos : photos.filter(p => p.categorie === filtreActif);
+
+    grille.innerHTML = items.map(p => `
+      <figure class="photo" data-id="${p.id}" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Voir la photo : ${p.legende}">
+        <div class="photo-vignette">
+          ${p.src ? `<img src="${p.src}" alt="${p.legende}">` : `<span class="photo-icone">🖼️</span>`}
+        </div>
+        <figcaption>
+          <span class="photo-categorie">${p.categorie}</span>
+          <span class="photo-legende">${p.legende}</span>
+        </figcaption>
+      </figure>
+    `).join("");
+
+    messageVide.style.display = items.length === 0 ? "block" : "none";
+  }
+
+  conteneurFiltres.addEventListener("click", e => {
+    const bouton = e.target.closest(".filtre");
+    if (!bouton) return;
+    filtreActif = bouton.dataset.categorie;
+    rendreFiltres();
+    rendreGrille();
+  });
+
+  rendreFiltres();
+  rendreGrille();
+
+  const lightboxFond = document.getElementById("lightbox-fond");
+  const lightboxImage = document.getElementById("lightbox-image");
+  const lightboxCategorie = document.getElementById("lightbox-categorie");
+  const lightboxLegende = document.getElementById("lightbox-legende");
+  let dernierFocus = null;
+
+  function ouvrirLightbox(id) {
+    const p = photos.find(x => x.id === id);
+    if (!p) return;
+    lightboxImage.innerHTML = p.src ? `<img src="${p.src}" alt="${p.legende}">` : `<span class="photo-icone">🖼️</span>`;
+    lightboxCategorie.textContent = p.categorie;
+    lightboxLegende.textContent = p.legende;
+    dernierFocus = document.activeElement;
+    lightboxFond.hidden = false;
+    document.body.style.overflow = "hidden";
+    document.getElementById("lightbox-fermer").focus();
+  }
+
+  function fermerLightbox() {
+    lightboxFond.hidden = true;
+    document.body.style.overflow = "";
+    if (dernierFocus) dernierFocus.focus();
+  }
+
+  grille.addEventListener("click", e => {
+    const photo = e.target.closest(".photo");
+    if (photo) ouvrirLightbox(Number(photo.dataset.id));
+  });
+  grille.addEventListener("keydown", e => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const photo = e.target.closest(".photo");
+    if (!photo) return;
+    e.preventDefault();
+    ouvrirLightbox(Number(photo.dataset.id));
+  });
+  document.getElementById("lightbox-fermer").addEventListener("click", fermerLightbox);
+  lightboxFond.addEventListener("click", e => { if (e.target === lightboxFond) fermerLightbox(); });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && !lightboxFond.hidden) fermerLightbox();
+  });
+</script>
+{% endblock %}
