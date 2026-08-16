@@ -21,11 +21,11 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  position: relative;
   background: var(--ivoire);
   background-image:
     radial-gradient(circle at 90% 6%, rgba(179,129,44,.08), transparent 40%),
     radial-gradient(circle at 6% 96%, rgba(122,35,49,.06), transparent 45%);
+  color: var(--encre);
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -73,8 +73,7 @@ body {
   font-weight: 400;
   font-size: clamp(2rem, 4.5vw, 3rem);
   line-height: 1.1;
-  max-width: 18ch;
-  color: var(--encre);
+  max-width: 20ch;
 }
 
 .page-header h1 .compte{
@@ -91,131 +90,83 @@ body {
   line-height: 1.55;
 }
 
-.bouton-programme{
-  display: inline-block;
-  margin-top: 1.6rem;
-  padding: .75rem 1.5rem;
-  background: var(--or);
-  color: var(--panneau);
-  font-family: 'Karla', sans-serif;
-  font-weight: 700;
-  font-size: .9rem;
-  text-decoration: none;
-  border-radius: 30px;
-  box-shadow: 0 6px 16px rgba(179,129,44,.3);
-  transition: background .18s ease, transform .18s ease;
-}
-
-.bouton-programme:hover{
-  background: var(--bordeaux);
-  transform: translateY(-2px);
-}
-
-/* --- Cadre principal --- */
-.activite-box{
+/* ---------- Liste des actualités ---------- */
+.actualites-box{
   flex: 1;
-  padding: 3rem 6vw 4rem;
+  padding: 2.5rem 6vw 4rem;
 }
 
-/* --- Grille des activités --- */
-.activites-grille{
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.4rem;
-  max-width: 1100px;
-}
-
-.activite{
-  background: var(--panneau);
-  border: 1px solid rgba(43,33,24,.1);
-  border-radius: 8px;
-  padding: 2.2rem 1.4rem 1.8rem;
-  text-align: center;
+.actualites-liste{
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: .5rem;
-  position: relative;
+  gap: 1rem;
+  max-width: 760px;
+}
+
+.actu{
+  background: var(--panneau);
+  border: 1px solid rgba(43,33,24,.1);
+  border-left: 3px solid var(--or-clair);
+  border-radius: var(--rayon);
+  padding: 1.4rem 1.6rem;
   cursor: pointer;
   transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
 }
 
-.activite:focus-visible{
+.actu:focus-visible{
   outline: 2px solid var(--or);
   outline-offset: 2px;
 }
 
-.activite::before{
-  content: "";
-  position: absolute;
-  left: 0; top: .9rem; bottom: .9rem;
-  width: 3px;
-  background: var(--or-clair);
-  border-radius: 2px;
-  transition: background .18s ease;
+.actu:hover, .actu:focus-visible{
+  transform: translateX(4px);
+  box-shadow: 0 10px 22px var(--ombre);
+  border-left-color: var(--bordeaux);
 }
 
-.activite:hover, .activite:focus-visible{
-  transform: translateY(-4px);
-  box-shadow: 0 14px 28px var(--ombre);
-  border-color: rgba(179,129,44,.35);
+.actu-date{
+  display: block;
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-weight: 700;
+  color: var(--vert);
+  margin-bottom: .4rem;
 }
 
-.activite:hover::before, .activite:focus-visible::before{ background: var(--bordeaux); }
-
-.activite .badge{
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: linear-gradient(160deg, var(--or-clair), var(--or));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: .6rem;
-  box-shadow: 0 6px 16px rgba(179,129,44,.35);
-  transition: transform .18s ease;
-}
-
-.activite:hover .badge, .activite:focus-visible .badge{
-  transform: scale(1.06) rotate(-3deg);
-}
-
-.activite .icon{
-  font-size: 1.9rem;
-  line-height: 1;
-}
-
-.activite .titre{
+.actu-titre{
   font-family: 'Fraunces', serif;
-  font-weight: 600;
-  font-size: 1.1rem;
-  color: var(--encre);
+  font-weight: 500;
+  font-size: 1.2rem;
+  line-height: 1.3;
+  margin-bottom: .5rem;
 }
 
-.activite .accroche{
-  font-size: .85rem;
-  color: rgba(43,33,24,.65);
-  line-height: 1.4;
+.actu-extrait{
+  font-size: .92rem;
+  line-height: 1.55;
+  color: rgba(43,33,24,.75);
 }
 
-.activite .plus{
-  margin-top: .5rem;
-  font-size: .75rem;
+.actu-lire{
+  display: inline-block;
+  margin-top: .7rem;
+  font-size: .78rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: .05em;
   color: var(--bordeaux);
-  opacity: 0;
-  transform: translateY(4px);
-  transition: opacity .18s ease, transform .18s ease;
 }
 
-.activite:hover .plus, .activite:focus-visible .plus{
-  opacity: 1;
-  transform: translateY(0);
+.vide{
+  text-align:center;
+  padding: 3rem 0;
+  color: rgba(43,33,24,.5);
+  font-style: italic;
+  display:none;
 }
 
-/* ---------- Fiche descriptive (modale) ---------- */
+/* ---------- Fiche article (modale) ---------- */
 .modale-fond{
   position: fixed;
   inset: 0;
@@ -232,10 +183,11 @@ body {
   position: relative;
   background: var(--panneau);
   border-radius: 6px;
-  max-width: 420px;
+  max-width: 480px;
   width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
   padding: 2.2rem 1.8rem 1.8rem;
-  text-align: center;
   box-shadow: 0 24px 60px rgba(43,33,24,.35);
 }
 
@@ -255,47 +207,30 @@ body {
 }
 .modale-fermer:hover{ background: rgba(122,35,49,.12); color: var(--bordeaux); }
 
-.modale-icone{
-  font-size: 2.4rem;
-  margin-bottom: .8rem;
+.modale-date{
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-weight: 700;
+  color: var(--vert);
+  margin-bottom: .5rem;
 }
 
 .modale h3{
   font-family: 'Fraunces', serif;
   font-weight: 500;
   font-size: 1.35rem;
-  line-height: 1.25;
+  line-height: 1.3;
   margin-bottom: 1rem;
 }
 
 .modale p{
   font-size: .95rem;
-  line-height: 1.6;
+  line-height: 1.65;
   color: var(--encre);
-}
-
-.modale-bouton-fichier{
-  display: inline-flex;
-  align-items: center;
-  gap: .4rem;
-  margin-top: 1.3rem;
-  padding: .6rem 1.3rem;
-  border-radius: 30px;
-  background: var(--or);
-  color: var(--panneau);
-  font-family: 'Karla', sans-serif;
-  font-size: .85rem;
-  font-weight: 700;
-  text-decoration: none;
-  transition: background .18s ease, transform .18s ease;
-}
-
-.modale-bouton-fichier:hover{
-  background: var(--bordeaux);
-  transform: translateY(-2px);
 }
 
 @media (max-width: 480px){
   .page-header{ padding: 3rem 5vw 2rem; }
-  .activite-box{ padding: 2.5rem 5vw 3rem; }
+  .actualites-box{ padding: 2rem 5vw 3rem; }
 }

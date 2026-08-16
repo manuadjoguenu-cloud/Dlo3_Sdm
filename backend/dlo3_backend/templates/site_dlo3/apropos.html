@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+{% block titre %}À propos — DLO3{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'Apropos.css' %}">{% endblock %}
+
+{% block content %}
+<div class="page-body">
+  <div class="explain">
+    <h2>À propos du DLO3</h2>
+    <h1>Qui sommes-nous ?</h1>
+    <div id="trait"></div>
+    <p id="present">
+      Le doyenné Lomé-Ouest 3 (DLO3) est un regroupement de communautés catholiques
+      situées dans la partie ouest de la ville de Lomé, au Togo.<br><br>
+
+      Il rassemble les servants de Messe autour des valeurs de foi, de service, de discipline et de fraternité.<br><br>
+
+      Notre mission est de promouvoir la formation liturgique, de renforcer la communication entre les
+      paroisses et d'encourager la participation active des jeunes à la vie de l'Église.
+    </p>
+  </div>
+
+  <div class="presentation-box">
+    <p><span>LE DLO3</span> EN CHIFFRES</p>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="icon">⛪</div>
+        <strong>{{ total_communautes }}</strong>
+        <span>Communautés</span>
+      </div>
+      <div class="stat-card">
+        <div class="icon">⛪</div>
+        <strong>{{ total_paroisses }}</strong>
+        <span>Paroisses</span>
+      </div>
+      <div class="stat-card">
+        <div class="icon">🏛️</div>
+        <strong>{{ total_quasi_paroisses }}</strong>
+        <span>Quasi-paroisses</span>
+      </div>
+      <div class="stat-card">
+        <div class="icon">📍</div>
+        <strong>{{ total_stations }}</strong>
+        <span>Stations secondaires</span>
+      </div>
+      <div class="stat-card">
+        <div class="icon">👥</div>
+        <strong>500+</strong>
+        <span>Servants</span>
+      </div>
+      <div class="stat-card">
+        <div class="icon">📅</div>
+        <strong>Toute l'année</strong>
+        <span>Activités</span>
+      </div>
+      <div class="stat-card">
+        <div class="icon">👨‍👩‍👧‍👦</div>
+        <strong>1</strong>
+        <span>Grande famille</span>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
