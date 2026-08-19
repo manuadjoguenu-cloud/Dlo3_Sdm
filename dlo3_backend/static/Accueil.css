@@ -1,0 +1,139 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h4{
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    color: rgb(17, 9, 9);
+    font-family: Arial, sans-serif;
+    user-select: none;
+    font-size: bold;
+    background-size: cover;
+    background-color: #F6EFE1;
+}
+
+.accueil-hero{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 6vw;
+}
+
+span {
+    color:rgb(186, 166, 19);
+}
+
+.underline{
+    color: rgb(186, 166, 19);
+    border-radius: 2px;
+}
+
+.decouvrir{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: rgb(46, 48, 50);
+    background-color: rgb(186, 166, 19);
+    width: 200px;
+    height: 40px;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bolder;
+    border: none;
+    border-radius: 30px;
+     box-shadow: 0 4px 10px rgba(69, 56, 56, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    
+}
+
+.decouvrir:hover{
+    background-color: rgba(186, 166, 19, 0.575);
+     transform: translateY(-3px);
+    transition: all 0.3s ease;
+}
+
+
+.voir{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: rgb(46, 48, 50);
+    background-color: rgba(186, 166, 19, 0.1);
+    width: 200px;
+    height: 40px;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bolder;
+    border: 2px solid white;
+    border-radius: 30px;
+    box-shadow: 0 4px 10px rgba(69, 56, 56, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.voir:hover{
+    background-color: rgba(93, 92, 77, 0.899);
+     transform: translateY(-3px);
+    transition: all 0.3s ease;
+}
+
+.cover{
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.description{
+    text-align: left;
+    color: rgb(0, 0, 0);
+}
+img{
+   opacity: 0.4;
+}
+
+button a{
+    text-decoration: none;
+    color: rgb(46, 48, 50);
+}
+
+button a:hover{
+    color: rgb(46, 48, 50);
+}
+
+button a:visited{
+    color:rgb(46, 48, 50) ;
+}
+
+
+    .decouvrir, .voir{
+        width: 100%;
+        max-width: 280px;
+    }
+
+@media (max-width: 768px) {
+    .accueil-hero{
+        padding: 2rem 6vw;
+    }
+    .decouvrir, .voir{
+        width: 100%;
+        max-width: 280px;
+    }
+}

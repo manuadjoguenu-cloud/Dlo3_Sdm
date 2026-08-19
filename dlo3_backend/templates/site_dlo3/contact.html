@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+{% block titre %}Contact — DLO3{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'formulaires.css' %}">{% endblock %}
+
+{% block content %}
+<header class="page-header">
+  <p class="eyebrow">Nous écrire</p>
+  <h1>Contactez-<span class="compte">nous</span></h1>
+  <p class="sous-titre">Une question, une suggestion, ou envie de vous impliquer ? Écrivez-nous, un responsable du DLO3 vous répondra.</p>
+</header>
+
+<main class="contact-box">
+  <div class="contact-grille">
+
+    <form class="contact-formulaire" method="post" novalidate>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="bouton-envoyer">Envoyer le message</button>
+    </form>
+
+    <aside class="contact-coordonnees">
+      <h2>Nos coordonnées</h2>
+      <div class="coordonnee">
+        <div>
+          <span class="coordonnee-label">Adresse</span>
+          <span class="coordonnee-valeur">À renseigner</span>
+        </div>
+      </div>
+      <div class="coordonnee">
+        <div>
+          <span class="coordonnee-label">Téléphone</span>
+          <span class="coordonnee-valeur">+22899252130</span>
+        </div>
+      </div>
+      <div class="coordonnee">
+        <div>
+          <span class="coordonnee-label">Email</span>
+          <span class="coordonnee-valeur">À renseigner</span>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+</main>
+{% endblock %}

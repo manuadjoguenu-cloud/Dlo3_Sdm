@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+{% block titre %}Faire un don — DLO3{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'formulaires.css' %}">{% endblock %}
+
+{% block content %}
+<header class="page-header">
+  <p class="eyebrow">Soutenir le DLO3</p>
+  <h1>Faire un <span class="compte">don</span></h1>
+  <p class="sous-titre">Envoyez votre don via Yas ou Flooz, puis déclarez-le ici pour qu'un responsable le confirme.</p>
+</header>
+
+<main class="contact-box">
+  <div class="contact-grille">
+
+    <form class="contact-formulaire" method="post" novalidate>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="bouton-envoyer">Déclarer mon don</button>
+    </form>
+
+    <aside class="contact-coordonnees">
+      <h2>Moyens de paiement</h2>
+      <div class="coordonnee">
+        <div>
+          <span class="coordonnee-label">Yas (Mixx by Yas)</span>
+          <span class="coordonnee-valeur">À renseigner</span>
+        </div>
+      </div>
+      <div class="coordonnee">
+        <div>
+          <span class="coordonnee-label">Flooz (T-Money)</span>
+          <span class="coordonnee-valeur">À renseigner</span>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+</main>
+{% endblock %}
