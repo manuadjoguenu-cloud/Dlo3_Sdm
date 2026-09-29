@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+{% block titre %}Politique d'utilisation — DLO3{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'formulaires.css' %}">{% endblock %}
+
+{% block content %}
+<header class="page-header">
+  <p class="eyebrow">Informations légales</p>
+  <h1>Politique <span class="compte">d'utilisation</span></h1>
+  <p class="sous-titre">Dernière mise à jour : à renseigner.</p>
+</header>
+
+<main class="contact-box" style="max-width: 760px;">
+  <section style="margin-bottom: 2rem;">
+    <h2 style="font-family:'Fraunces',serif; margin-bottom:.6rem;">1. Objet du site</h2>
+    <p>Le présent site est édité par le Doyenné Lomé-Ouest 3 (DLO3), à des fins d'information sur les activités et paroisses du doyenné. À renseigner : forme juridique de l'éditeur, responsable de publication.</p>
+  </section>
+
+  <section style="margin-bottom: 2rem;">
+    <h2 style="font-family:'Fraunces',serif; margin-bottom:.6rem;">2. Données collectées</h2>
+    <p>Le formulaire de contact et le formulaire de don enregistrent le nom, le téléphone, l'email (facultatif) et le message transmis. Ces informations sont utilisées uniquement pour répondre à la demande ou confirmer un don, et ne sont ni vendues ni transmises à des tiers.</p>
+  </section>
+
+  <section style="margin-bottom: 2rem;">
+    <h2 style="font-family:'Fraunces',serif; margin-bottom:.6rem;">3. Cookies</h2>
+    <p>À renseigner selon ce que le site utilise réellement (session Django uniquement, pas de traceurs publicitaires actuellement).</p>
+  </section>
+
+  <section style="margin-bottom: 2rem;">
+    <h2 style="font-family:'Fraunces',serif; margin-bottom:.6rem;">4. Droits des utilisateurs</h2>
+    <p>Toute personne ayant transmis des données via le site peut demander leur suppression en écrivant à l'adresse de contact indiquée sur la page <a href="{% url 'contact' %}">Contact</a>.</p>
+  </section>
+
+  <section>
+    <h2 style="font-family:'Fraunces',serif; margin-bottom:.6rem;">5. Contact</h2>
+    <p>Pour toute question relative à cette politique, utilisez le formulaire de la page <a href="{% url 'contact' %}">Contact</a>.</p>
+  </section>
+</main>
+{% endblock %}

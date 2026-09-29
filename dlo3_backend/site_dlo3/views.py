@@ -131,3 +131,6 @@ def actualites(request):
         "total": liste.count(),
     }
     return render(request, "site_dlo3/actualites.html", contexte)
+
+def politique(request):
+    return render(request, "site_dlo3/politique.html", {"page_active": "politique"})

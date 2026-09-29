@@ -11,5 +11,6 @@ urlpatterns = [
     #path("rejoindre/", views.rejoindre, name="rejoindre"),
     path("don/", views.don, name="don"),
     path("actualites/", views.actualites, name="actualites"),
+    path("politique/", views.politique, name="politique"),
 ]
 
