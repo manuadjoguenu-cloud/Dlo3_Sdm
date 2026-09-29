@@ -57,6 +57,9 @@
     return `https://www.google.com/maps/search/?api=1&query=${requete}`;
   }
 
+  function esc(v) {
+    return String(v ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  }
   const ordreTypes = ["Paroisse", "Quasi-Paroisse", "Station secondaire", "Sanctuaire"];
   const iconesParType = {
     "Paroisse": "⛪",
@@ -89,10 +92,10 @@
         </div>
         <div class="grille">
           ${items.map(c => `
-            <article class="carte" data-id="${c.id}" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Voir les informations de ${c.vocable}, ${c.lieu}">
+            <article class="carte" data-id="${esc(c.id)}" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Voir les informations de ${esc(c.vocable)}, ${esc(c.lieu)}">
               <div class="icone" aria-hidden="true">${iconesParType[c.type] || "⛪"}</div>
-              <div class="vocable">${c.vocable}</div>
-              <div class="lieu">${c.lieu}</div>
+              <div class="vocable">${esc(c.vocable)}</div>
+              <div class="lieu">${esc(c.lieu)}</div>
             </article>
           `).join("")}
         </div>

@@ -18,9 +18,8 @@ python manage.py charger_donnees_initiales   # recharge tes 23 communautés + 4 
 python manage.py createsuperuser             # crée TON compte admin (recommandé plutôt que celui de test)
 ```
 
-Un compte de test existe déjà dans `db.sqlite3` fourni :
-**identifiant `admin` / mot de passe `MOT_DE_PASSE_RETIRE`** — change-le ou crée le tien avec
-`createsuperuser` avant de mettre le site en ligne.
+Crée ton compte admin avec `createsuperuser` (mot de passe fort, jamais écrit dans le dépôt).
+Copie `.env.example` vers `.env` et remplis les valeurs (`DEBUG=False` en production).
 
 ## Lancer le site en local
 

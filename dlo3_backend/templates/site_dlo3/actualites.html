@@ -35,15 +35,18 @@
 <script>
   const actualites = JSON.parse(document.getElementById("actualites-data").textContent);
 
+  function esc(v) {
+    return String(v ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  }
   const liste = document.getElementById("liste");
   const messageVide = document.getElementById("message-vide");
 
   function rendreListe() {
     liste.innerHTML = actualites.map(a => `
-      <article class="actu" data-id="${a.id}" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Lire l'article : ${a.titre}">
-        <span class="actu-date">${a.date}</span>
-        <h2 class="actu-titre">${a.titre}</h2>
-        <p class="actu-extrait">${a.extrait}</p>
+      <article class="actu" data-id="${a.id}" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Lire l'article : ${esc(a.titre)}">
+        <span class="actu-date">${esc(a.date)}</span>
+        <h2 class="actu-titre">${esc(a.titre)}</h2>
+        <p class="actu-extrait">${esc(a.extrait)}</p>
         <span class="actu-lire">Lire la suite →</span>
       </article>
     `).join("");

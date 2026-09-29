@@ -1,4 +1,11 @@
+from django.core.exceptions import ValidationError
+from django.core.validators import FileExtensionValidator
 from django.db import models
+
+
+def limiter_taille_fichier(f):
+    if f.size > 5 * 1024 * 1024:
+        raise ValidationError("Le fichier ne doit pas dépasser 5 Mo.")
 
 
 class Communaute(models.Model):
@@ -55,8 +62,11 @@ class Activite(models.Model):
     titre = models.CharField(max_length=150)
     accroche = models.CharField(max_length=150, blank=True, help_text="Phrase courte visible sur la carte")
     description = models.TextField(blank=True)
-    fichier = models.FileField(upload_to="activites/", blank=True, null=True,
-                                help_text="Programme au format PDF ou Word (facultatif)")
+    fichier = models.FileField(
+        upload_to="activites/", blank=True, null=True,
+        validators=[FileExtensionValidator(["pdf", "doc", "docx"]), limiter_taille_fichier],
+        help_text="Programme au format PDF ou Word, 5 Mo max (facultatif)",
+    )
     ordre = models.PositiveIntegerField(default=0)
 
     class Meta:

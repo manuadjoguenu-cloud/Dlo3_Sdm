@@ -84,9 +84,10 @@ def galerie(request):
 
 def contact(request):
     if request.method == "POST":
-        form = MessageContactForm(request.POST)
+        form = MessageContactForm(request.POST, request=request)
         if form.is_valid():
             form.save()
+            form.enregistrer_tentative()
             messages.success(request, "Votre message a bien été envoyé. Merci, nous reviendrons vers vous rapidement.")
             return redirect("contact")
     else:
@@ -94,23 +95,12 @@ def contact(request):
     return render(request, "site_dlo3/contact.html", {"page_active": "contact", "form": form})
 
 
-#def rejoindre(request):
-    if request.method == "POST":
-        form = CandidatureForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Votre candidature a bien été envoyée. Un responsable vous recontactera bientôt.")
-            return redirect("rejoindre")
-    else:
-        form = CandidatureForm()
-    return render(request, "site_dlo3/rejoindre.html", {"page_active": "rejoindre", "form": form})
-
-
 def don(request):
     if request.method == "POST":
-        form = DonForm(request.POST)
+        form = DonForm(request.POST, request=request)
         if form.is_valid():
             form.save()
+            form.enregistrer_tentative()
             messages.success(request, "Merci pour votre don ! Une fois le paiement effectué via Yas ou Flooz, un responsable le confirmera.")
             return redirect("don")
     else:

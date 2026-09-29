@@ -36,6 +36,9 @@
   const photos = JSON.parse(document.getElementById("photos-data").textContent);
   const categories = JSON.parse(document.getElementById("categories-data").textContent);
 
+  function esc(v) {
+    return String(v ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  }
   const conteneurFiltres = document.getElementById("filtres");
   const grille = document.getElementById("grille");
   const messageVide = document.getElementById("message-vide");
@@ -43,8 +46,8 @@
 
   function rendreFiltres() {
     conteneurFiltres.innerHTML = categories.map(cat => `
-      <button class="filtre ${cat === filtreActif ? "actif" : ""}" data-categorie="${cat}" role="tab" aria-selected="${cat === filtreActif}">
-        ${cat}
+      <button class="filtre ${cat === filtreActif ? "actif" : ""}" data-categorie="${esc(cat)}" role="tab" aria-selected="${cat === filtreActif}">
+        ${esc(cat)}
       </button>
     `).join("");
   }
@@ -53,13 +56,13 @@
     const items = filtreActif === "Toutes" ? photos : photos.filter(p => p.categorie === filtreActif);
 
     grille.innerHTML = items.map(p => `
-      <figure class="photo" data-id="${p.id}" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Voir la photo : ${p.legende}">
+      <figure class="photo" data-id="${p.id}" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Voir la photo : ${esc(p.legende)}">
         <div class="photo-vignette">
-          ${p.src ? `<img src="${p.src}" alt="${p.legende}">` : `<span class="photo-icone">🖼️</span>`}
+          ${p.src ? `<img src="${esc(p.src)}" alt="${esc(p.legende)}">` : `<span class="photo-icone">🖼️</span>`}
         </div>
         <figcaption>
-          <span class="photo-categorie">${p.categorie}</span>
-          <span class="photo-legende">${p.legende}</span>
+          <span class="photo-categorie">${esc(p.categorie)}</span>
+          <span class="photo-legende">${esc(p.legende)}</span>
         </figcaption>
       </figure>
     `).join("");
@@ -87,7 +90,7 @@
   function ouvrirLightbox(id) {
     const p = photos.find(x => x.id === id);
     if (!p) return;
-    lightboxImage.innerHTML = p.src ? `<img src="${p.src}" alt="${p.legende}">` : `<span class="photo-icone">🖼️</span>`;
+    lightboxImage.innerHTML = p.src ? `<img src="${esc(p.src)}" alt="${esc(p.legende)}">` : `<span class="photo-icone">🖼️</span>`;
     lightboxCategorie.textContent = p.categorie;
     lightboxLegende.textContent = p.legende;
     dernierFocus = document.activeElement;
